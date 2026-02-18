@@ -95,6 +95,9 @@ post_install() {
         systemctl set-default graphical.target
         mv /etc/network/interfaces /etc/network/interfaces.bak
         systemctl enable NetworkManager
+        xdg-mime default thunar.desktop inode/directory
+        mkdir -p ~/.local/share/dbus-1/services
+        cp files/org.freedesktop.FileManager1.service ~/.local/share/dbus-1/services/
 }
 
 main() {
@@ -110,7 +113,7 @@ main() {
         GENERAL_PACKAGES="
                 sway sway-notification-center swaylock swayimg
                 gnome-keyring gdm3
-                wofi grim slurp waybar mpv thunar clipman pulseaudio-utils brightnessctl
+                wofi grim slurp waybar mpv thunar clipman pulseaudio-utils brightnessctl okular
                 nwg-look nwg-displays 
                 xwayland xwaylandvideobridge
                 xdg-desktop-portal-gtk xdg-desktop-portal-wlr wlr-randr wl-clipboard
