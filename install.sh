@@ -90,6 +90,13 @@ copy_config_files() {
         su $USERNAME -c "mkdir -p /home/$USERNAME/.config && cp -r files/.config/* /home/$USERNAME/.config/"
 }
 
+post_install() {
+        systemctl enable gdm3
+        systemctl set-default graphical.target
+        mv /etc/network/interfaces /etc/network/interfaces.bak
+        systemctl enable NetworkManager
+}
+
 main() {
         check_debian_13
 
@@ -119,6 +126,7 @@ main() {
         copy_keychron_rules
         copy_config_files
         install_discord
+        post_install
 }
 
 main
