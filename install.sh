@@ -78,7 +78,7 @@ install_discord() {
 
 install_flatpak_apps() {
         flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-        su $USERNAME -c "flatpak install app/com.obsproject.Studio/x86_64/stable runtime/com.obsproject.Studio.Plugin.GStreamerVaapi/x86_64/stable && flatpak install -y app/md.obsidian.Obsidian/x86_64/stable"
+        flatpak install app/com.obsproject.Studio/x86_64/stable runtime/com.obsproject.Studio.Plugin.GStreamerVaapi/x86_64/stable && flatpak install -y app/md.obsidian.Obsidian/x86_64/stable
 }
 
 copy_keychron_rules() {
