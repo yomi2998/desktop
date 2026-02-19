@@ -211,5 +211,10 @@ exec waybar
 bindsym $mod+v exec clipman pick --tool wofi -T'--prompt=Select Clipboard Item -i'
 for_window [class="^.*"] border pixel 1
 
+# media controls
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+
 include /etc/sway/config.d/*
 include ~/.config/sway/outputs
