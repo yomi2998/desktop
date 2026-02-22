@@ -88,6 +88,8 @@ install_nvidia() {
                 return
         fi
         apt install -y nvidia-driver
+        wget https://github.com/bayasdev/envycontrol/releases/download/v3.5.1/python3-envycontrol_3.5.1-1_all.deb
+        apt install -y ./python3-envycontrol_3.5.1-1_all.deb
 }
 
 install_flatpak_apps() {
