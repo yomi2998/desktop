@@ -23,12 +23,12 @@ enable_non_free_repos() {
         echo "Enabling non-free repositories..."
         for f in /etc/apt/sources.list; do
                 [ -f "$f" ] || continue
-                # skip if any active deb line already contains non-free
-                if grep -qE '^\s*deb .*non-free' "$f"; then
+                # skip if any active deb line already contains non-free (but not non-free-firmware)
+                if grep -qE '^\s*deb .*\<non-free\>' "$f"; then
                         continue
                 fi
                 # only modify active deb lines and don't duplicate components
-                sed -i '/^[[:space:]]*deb /{ /non-free/! s/\<main\>/& non-free/ }' "$f"
+                sed -i '/^[[:space:]]*deb /{ /\<non-free\>/! s/\<main\>/& non-free/ }' "$f"
         done
 }
 
@@ -36,10 +36,10 @@ enable_non_free_firmware_repos() {
         echo "Enabling non-free-firmware repositories..."
         for f in /etc/apt/sources.list; do
                 [ -f "$f" ] || continue
-                if grep -qE '^\s*deb .*non-free-firmware' "$f"; then
+                if grep -qE '^\s*deb .*\<non-free-firmware\>' "$f"; then
                         continue
                 fi
-                sed -i '/^[[:space:]]*deb /{ /non-free-firmware/! s/\<main\>/& non-free-firmware/ }' "$f"
+                sed -i '/^[[:space:]]*deb /{ /\<non-free-firmware\>/! s/\<main\>/& non-free-firmware/ }' "$f"
         done
 }
 
@@ -64,6 +64,11 @@ enable_sudo() {
 }
 
 install_discord() {
+        read -p "Do you want to install Discord? (y/n) " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                return
+        fi
         su $USERNAME -c "cd ~ &&
         mkdir -p temp &&
         cd temp &&
@@ -74,6 +79,15 @@ install_discord() {
         rm -rf temp &&
         /home/$USERNAME/.local/bin/disco &&
         /home/$USERNAME/.local/bin/disco --canary"
+}
+
+install_nvidia() {
+        read -p "Do you want to install NVIDIA drivers? (y/n) " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                return
+        fi
+        apt install -y nvidia-driver
 }
 
 install_flatpak_apps() {
@@ -95,9 +109,7 @@ post_install() {
         systemctl set-default graphical.target
         mv /etc/network/interfaces /etc/network/interfaces.bak
         systemctl enable NetworkManager
-        xdg-mime default thunar.desktop inode/directory
-        mkdir -p ~/.local/share/dbus-1/services
-        cp files/org.freedesktop.FileManager1.service ~/.local/share/dbus-1/services/
+        su $USERNAME -c "xdg-mime default thunar.desktop inode/directory && mkdir -p ~/.local/share/dbus-1/services && cp files/org.freedesktop.FileManager1.service ~/.local/share/dbus-1/services/"
 }
 
 main() {
