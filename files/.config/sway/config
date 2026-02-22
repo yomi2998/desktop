@@ -16,7 +16,7 @@ set $right l
 # Your preferred terminal emulator
 set $term foot
 # Your preferred application launcher
-set $menu wofi --show drun
+set $menu fuzzel --no-exit-on-keyboard-focus-loss
 
 include /etc/sway/config-vars.d/*
 
@@ -204,11 +204,10 @@ exec_always autotiling
 exec fcitx5 -d
 bindsym $mod+e exec thunar
 bindsym $mod+w exec firefox
-exec wl-paste -p -t text --watch clipman store
+exec wl-paste -t text --watch cliphist store
 exec nm-applet
-exec clipman restore
 exec waybar
-bindsym $mod+v exec clipman pick --tool wofi -T'--prompt=Select Clipboard Item -i'
+bindsym $mod+v exec cliphist list | fuzzel --no-exit-on-keyboard-focus-loss --dmenu --with-nth 2 | cliphist decode | wl-copy
 for_window [class="^.*"] border pixel 1
 
 # media controls

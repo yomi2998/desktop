@@ -113,7 +113,8 @@ main() {
         GENERAL_PACKAGES="
                 sway sway-notification-center swaylock swayimg
                 gnome-keyring gdm3
-                wofi grim slurp waybar mpv thunar clipman pulseaudio-utils brightnessctl playerctl okular libreoffice galculator pavucontrol
+                mpv thunar okular libreoffice galculator openshot-qt
+                pavucontrol cliphist fuzzel grim slurp waybar pulseaudio-utils brightnessctl playerctl
                 nwg-look nwg-displays 
                 xwayland xwaylandvideobridge
                 xdg-desktop-portal-gtk xdg-desktop-portal-wlr wlr-randr wl-clipboard
