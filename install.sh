@@ -135,7 +135,7 @@ main() {
                 chromium firefox-esr
                 fcitx5 fcitx5-chinese-addons fonts-noto* fonts-font-awesome
                 build-essential cmake make gdb lldb clang clang-format llvm nlohmann-json3-dev
-                nano git curl wget ntfs-3g aria2 flatpak autotiling network-manager network-manager-applet seahorse
+                nano git curl wget ntfs-3g aria2 flatpak autotiling network-manager network-manager-applet seahorse blueman
         "
         install_packages "$GENERAL_PACKAGES"
         install_flatpak_apps

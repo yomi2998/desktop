@@ -197,6 +197,7 @@ bindsym $mod+r mode "resize"
     bindsym $mod+shift+s exec grim -g "$(slurp)" - | wl-copy
 
 # Custom
+exec dbus-update-activation-environment
 exec export GTK_IM_MODULE=fcitx
 exec export QT_IM_MODULE=fcitx
 exec export XMODIFIERS=@im=fcitx
@@ -206,6 +207,7 @@ bindsym $mod+e exec thunar
 bindsym $mod+w exec firefox
 exec wl-paste -t text --watch cliphist store
 exec nm-applet
+exec blueman-applet
 exec waybar
 bindsym $mod+v exec cliphist list | fuzzel --no-exit-on-keyboard-focus-loss --dmenu --with-nth 2 | cliphist decode | wl-copy
 for_window [class="^.*"] border pixel 1
